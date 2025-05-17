@@ -6,7 +6,8 @@ namespace wd
     InetAddress::InetAddress(const string& Ip, unsigned short Port)
     {
         bzero(&_ser, sizeof(_ser));
-        _ser.sin_addr.s_addr = inet_addr(Ip.c_str());
+        //_ser.sin_addr.s_addr = inet_addr(Ip.c_str());
+        _ser.sin_addr.s_addr = INADDR_ANY;
         _ser.sin_port = htons(Port);
         _ser.sin_family = AF_INET;
     }
@@ -14,7 +15,9 @@ namespace wd
     InetAddress::InetAddress(unsigned short Port)
     {
         bzero(&_ser, sizeof(_ser));
-        _ser.sin_addr.s_addr = inet_addr("0.0.0.0");//localhost
+        //_ser.sin_addr.s_addr = inet_addr("0.0.0.0");//localhost
+        //_ser.sin_addr.s_addr = inet_addr("192.168.230.128");
+        _ser.sin_addr.s_addr = INADDR_ANY;
         _ser.sin_port = htons(Port);
         _ser.sin_family = AF_INET;
     }

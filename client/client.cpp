@@ -19,8 +19,10 @@ int main()
     }
     struct sockaddr_in sockinfo;
     bzero(&sockinfo, sizeof(sockinfo));
-    sockinfo.sin_addr.s_addr = inet_addr("172.21.0.7");
+    //sockinfo.sin_addr.s_addr = inet_addr("172.21.0.7");
+    sockinfo.sin_addr.s_addr = inet_addr("127.0.0.1");
     sockinfo.sin_port = htons(8888);
+    //sockinfo.sin_port = htons(39527);
     sockinfo.sin_family = AF_INET;
     ret = connect(sockfd, (sockaddr *)&sockinfo, sizeof(sockinfo));
     if (-1 == ret)

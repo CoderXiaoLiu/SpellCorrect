@@ -3,6 +3,8 @@
 #include <string.h>
 #include <errno.h>
 #include <unistd.h>
+#include <cstdio>
+#include <cstdint>
 
 namespace wd
 {

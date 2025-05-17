@@ -69,9 +69,26 @@ namespace wd
         }
     }
 
+    void printSocketAddress(const sockaddr* addr) { // 加上log调试
+        char addrBuf[INET_ADDRSTRLEN];
+        if (addr->sa_family == AF_INET) {
+            const sockaddr_in* addr_in = reinterpret_cast<const sockaddr_in*>(addr);
+            if (inet_ntop(AF_INET, &(addr_in->sin_addr), addrBuf, sizeof(addrBuf))) {
+                std::cout << "Address: " << addrBuf << std::endl;
+                std::cout << "Port: " << ntohs(addr_in->sin_port) << std::endl;
+            } else {
+                std::cerr << "Failed to convert address to string" << std::endl;
+            }
+        } else {
+            std::cerr << "Unsupported address family" << std::endl;
+        }
+    }
+
     void Acceptor::bind()
     {
         int ret = ::bind(_socket.getFd(), (sockaddr *)_addr.getAddressPtr(), sizeof(sockaddr));
+
+        printSocketAddress((sockaddr *)_addr.getAddressPtr());
         if (-1 == ret)
         {
             perror("bind");
